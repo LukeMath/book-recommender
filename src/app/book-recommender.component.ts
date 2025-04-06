@@ -7,6 +7,14 @@ interface Book {
   authors: { name: string }[];
 }
 
+interface OpenLibraryApiResponse {
+  key: string;
+  name: string;
+  subject_type: string;
+  work_count: number;
+  works: Book[];
+}
+
 @Component({
   selector: 'book-recommender',
   templateUrl: './book-recommender.component.html',
@@ -34,7 +42,7 @@ export class BookRecommenderComponent {
     this.loading = true;
     const subject = this.selectedGenre.toLowerCase();
     const url = `https://openlibrary.org/subjects/${subject}.json?limit=10`;
-    this.http.get<any>(url).subscribe((res) => {
+    this.http.get<OpenLibraryApiResponse>(url).subscribe((res) => {
       this.books = res.works;
       // Removing loading spinner once network request loads
       this.loading = false;
