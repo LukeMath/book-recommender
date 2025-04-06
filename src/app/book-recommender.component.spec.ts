@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { BookRecommenderComponent } from './book-recommender.component';
 
-describe('AppComponent', () => {
+describe('BookRecommenderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
