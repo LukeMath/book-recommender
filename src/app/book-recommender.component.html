@@ -1,0 +1,41 @@
+<div class="title-container">
+  <h1 class="title">Book Recommender</h1>
+  <h2 class="subheading">
+    Select a genre from the dropdown, and have some recommendations displayed from the OpenLibrary API
+  </h2>
+  <h2 class="subheading">
+    If a book catches your eye, click on it to be directed to Amazon
+  </h2>
+</div>
+
+<div class="container">
+  <mat-form-field appearance="fill">
+    <mat-label>Select Genre</mat-label>
+    <mat-select [(value)]="selectedGenre" (selectionChange)="onGenreChange()">
+      <mat-option *ngFor="let genre of genres" [value]="genre">
+        {{ genre }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-button (click)="clearSelection()">Clear</button>
+  
+  <div class="book-list">
+    @if (books.length && !loading) {
+    <div class="book" *ngFor="let book of books">
+      <a [href]="getAmazonUrl(book)" target="_blank" rel="noopener noreferrer">
+        <img [src]="getCoverUrl(book.cover_id)" alt="Book cover">
+      </a>
+      <div>
+        <h3>{{ book.title }}</h3>
+        <p *ngIf="book.authors">by {{ book.authors[0].name }}</p>
+      </div>
+    </div>
+  }
+  </div>
+  @if (loading) {
+    <div class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+</div>

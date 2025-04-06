@@ -1,0 +1,51 @@
+.container {
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.book {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 128px;
+  text-align: center;
+}
+
+img {
+  width: 128px;
+  height: 193px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 2rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+.subheading {
+  font-size: 1.1rem;
+  color: #555;
+  margin-top: 5px;
+  font-weight: normal;
+}
