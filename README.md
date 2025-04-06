@@ -1,3 +1,22 @@
+ ## Setup
+
+ To run the application, you need to have npm/node installed. From there, all you should need is to install Angular and the dependencies used by the application. To install Angular, run the following command:
+
+ ```bash
+npm install -g @angular/cli@17
+```
+To install the dependencies, run: 
+
+ ```bash
+npm install
+```
+
+OR
+
+ ```bash
+npm ci
+```
+
 To start a local development server, run:
 
 ```bash
