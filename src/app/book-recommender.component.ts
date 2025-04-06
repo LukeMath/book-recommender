@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { catchError, of } from 'rxjs';
 
 interface Book {
   title: string;
@@ -34,6 +35,7 @@ export class BookRecommenderComponent {
   protected books: Book[] = [];
   protected selectedGenre = '';
   protected loading = false;
+  protected errorMessage = '';
 
   constructor(private http: HttpClient) {}
 
@@ -42,8 +44,14 @@ export class BookRecommenderComponent {
     this.loading = true;
     const subject = this.selectedGenre.toLowerCase();
     const url = `https://openlibrary.org/subjects/${subject}.json?limit=10`;
-    this.http.get<OpenLibraryApiResponse>(url).subscribe((res) => {
-      this.books = res.works;
+    this.http.get<OpenLibraryApiResponse>(url).pipe(
+      catchError(() => {
+        this.errorMessage = 'An error occurred while fetching data. Please try again later.';
+        return of([]);
+      })
+    ).subscribe((res: any) => {
+      // OR statement used here to not have any TypeErrors if network request throws an error
+      this.books = res.works || [];
       // Removing loading spinner once network request loads
       this.loading = false;
     });
@@ -65,8 +73,9 @@ export class BookRecommenderComponent {
   }
 
   protected clearSelection() {
-    // Clearing the selected genre as well as setting books to an empty array to clear the display
+    // Clearing the dropdown and books display or error message (based on the network request)
     this.selectedGenre = '';
     this.books = [];
+    this.errorMessage = '';
   }
 }
